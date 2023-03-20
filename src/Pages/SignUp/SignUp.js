@@ -9,7 +9,9 @@ const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser, updateUser } = useContext(AuthContext);
     const [signUpError, setSignUPError] = useState('');
-    const [createdUserEmail, setCreatedUserEmail] = useState('')
+    const [createdUserEmail, setCreatedUserEmail] = useState('');
+    
+    
     const [token] = useToken(createdUserEmail);
     const navigate = useNavigate();
 
@@ -50,12 +52,18 @@ const SignUp = () => {
         })
         .then(res => res.json())
         .then(data =>{
-            // setCreatedUserEmail(ema
-            console.log('save user',data);
-            navigate('/');
+            setCreatedUserEmail(email);
         })
     }
-
+    // const getUserToken = email => {
+    //     fetch(`http://localhost:5000/jwt?email=${email}`)
+    //     .then (res => res.json() )
+    //     .then (data =>{
+    //         if(data.accessToken){
+    //             localStorage.setItem('accessToken', data.accessToken);
+    //         }
+    //     })
+    // }
     
 
     return (
