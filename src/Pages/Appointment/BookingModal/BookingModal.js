@@ -1,11 +1,13 @@
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useContext } from 'react';
 import toast from 'react-hot-toast';
+import { AuthContext } from '../../../contexts/AuthProvider';
 
 
 const BookingModal = ({ treatment, setTreatment, selectedDate, refetch }) => {
     const { name: treatmentName, slots } = treatment;
     const date = format(selectedDate, 'PP');
+    const { user } = useContext(AuthContext);
 
     const handleBooking = event => {
         event.preventDefault();
@@ -14,6 +16,7 @@ const BookingModal = ({ treatment, setTreatment, selectedDate, refetch }) => {
         const name = form.name.value;
         const email = form.email.value;
         const phone = form.phone.value;
+        const address = form.address.value;
 
         const booking = {
             appointmentDate: date,
@@ -22,11 +25,12 @@ const BookingModal = ({ treatment, setTreatment, selectedDate, refetch }) => {
             slot,
             email,
             phone,
+            address,
         }
 
         // console.log(booking);s
 
-        fetch('http://localhost:5000/bookings', {
+        fetch('http:/localhost:5000/bookings', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -64,9 +68,10 @@ const BookingModal = ({ treatment, setTreatment, selectedDate, refetch }) => {
                                 >{slot}</option>)
                             }
                         </select>
-                        <input name='name' type="text" placeholder="Full Name" className="input input-bordered w-full" />
+                        <input name='name' type="text" defaultValue={user?.displayName} className="input input-bordered w-full" />
+                        <input name='email' type="email" defaultValue={user?.email} className="input input-bordered w-full" />
                         <input name='phone' type="number" placeholder="Phone Number" className="input input-bordered w-full" />
-                        <input name='email' type="email" placeholder="Email" className="input input-bordered w-full" />
+                        <input name='address' type="text" placeholder="Address" className="input input-bordered w-full" />
                         <input type="submit" className="input input-bordered w-full bg-neutral text-white" value="Submit" />
                     </form>
                 </div>

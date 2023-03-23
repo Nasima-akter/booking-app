@@ -4,7 +4,7 @@ import { DayPicker } from 'react-day-picker';
 
 const AppointmentBanner = ({ selectedDate, setSelectedDate }) => {
     return (
-        <header className='my-6'
+        <header id="overlay" className='my-6'
             style={{
                 background: `url(${bg})`,
                 backgroundSize: '100%',

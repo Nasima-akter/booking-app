@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
+import { toast } from 'react-hot-toast';
 import ConfirmationModal from '../../Shared/ConfirmationModal/ConfirmationModal';
 import Loading from '../../Shared/Loading/Loading';
 
@@ -9,16 +10,14 @@ const ManageSellers = () => {
     const closeModal = () => {
         setDeletingSeller(null);
     }
+ 
+    
 
-    const handleDeleteSeller = seller => {
-        console.log(seller);
-    }
-
-    const { data: sellers, isLoading } = useQuery({
+    const { data: sellers, isLoading, refetch } = useQuery({
         queryKey: ['sellers'],
         queryFn: async () => {
             try {
-                const res = await fetch('http://localhost:5000/sellers', {
+                const res = await fetch('http:/localhost:5000/sellers', {
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
                     }
@@ -30,7 +29,23 @@ const ManageSellers = () => {
 
             }
         }
-    })
+    });
+
+    const handleDeleteSeller = seller => {
+        fetch(`http:/localhost:5000/sellers/${seller._id}`, {
+            method: 'DELETE',
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.deletedCount > 0){
+                refetch();
+                toast.success(`seller ${seller.name}deleted successfully`)
+            }
+        })
+    }
 
     if (isLoading) {
         return <Loading></Loading>
