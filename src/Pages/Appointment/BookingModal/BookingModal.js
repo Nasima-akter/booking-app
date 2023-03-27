@@ -28,9 +28,9 @@ const BookingModal = ({ treatment, setTreatment, selectedDate, refetch }) => {
             address,
         }
 
-        // console.log(booking);s
+        // console.log(booking);https://booking-app-server-green.vercel.app
 
-        fetch('http:/localhost:5000/bookings', {
+        fetch('http://localhost:5000/bookings', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

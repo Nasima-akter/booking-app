@@ -6,13 +6,12 @@ import BookingModal from '../BookingModal/BookingModal';
 import AppointmentOption from '../AppointmentOptions/AppointmentOption';
 
 const AvailableAppointments = ({ selectedDate }) => {
-    // const [appointmentOptions, setAppointmentOptions] = useState([]);
     const [treatment, setTreatment] = useState(null);
     const date = format(selectedDate, 'PP');
     const {data:appointmentOptions = [], refetch, isLoading } = useQuery({
         queryKey: ['appointmentOptions', date],
         queryFn: async() => {
-            const res = await fetch(`http:/localhost:5000/v2/appointmentOptions?date=${date}`);
+            const res = await fetch(`https://booking-app-server-green.vercel.app/v2/appointmentOptions?date=${date}`);
             const data = await res.json();
             return data;
         }

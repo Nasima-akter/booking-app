@@ -17,7 +17,7 @@ const ManageSellers = () => {
         queryKey: ['sellers'],
         queryFn: async () => {
             try {
-                const res = await fetch('http:/localhost:5000/sellers', {
+                const res = await fetch('https://booking-app-server-green.vercel.app/sellers', {
                     headers: {
                         authorization: `bearer ${localStorage.getItem('accessToken')}`
                     }
@@ -32,7 +32,7 @@ const ManageSellers = () => {
     });
 
     const handleDeleteSeller = seller => {
-        fetch(`http:/localhost:5000/sellers/${seller._id}`, {
+        fetch(`https://booking-app-server-green.vercel.app/sellers/${seller._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
