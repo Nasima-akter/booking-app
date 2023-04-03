@@ -5,7 +5,9 @@ import { AuthContext } from '../../../contexts/AuthProvider';
 const MyAppointment = () => {
     const { user } = useContext(AuthContext);
 
-    const url = `https://booking-app-server-green.vercel.app/bookings?email=${user?.email}`;
+    // https://booking-app-server-green.vercel.app
+
+    const url = `http://localhost:5000/bookings?email=${user?.email}`;
 
     const { data: bookings = [] } = useQuery({
         queryKey: ['bookings', user?.email],

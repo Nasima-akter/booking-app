@@ -3,7 +3,7 @@ import React from 'react';
 const AppointmentOption = ({ appointmentOption, setTreatment }) => {
     const {name, slots } = appointmentOption;
     return (
-        <div className="card shadow-xl">
+        <div className="card shadow-md lg:mt-6 sm:mt-6">
             <div className="card-body text-center
             ">
                 <h2 className="text-2xl text-info text-center font-bold">{name}</h2>

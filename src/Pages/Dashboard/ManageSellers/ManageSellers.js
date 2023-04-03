@@ -32,7 +32,7 @@ const ManageSellers = () => {
     });
 
     const handleDeleteSeller = seller => {
-        fetch(`https://booking-app-server-green.vercel.app/sellers/${seller._id}`, {
+        fetch(`http://localhost:5000/sellers/${seller._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
