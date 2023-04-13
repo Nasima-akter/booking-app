@@ -1,3 +1,4 @@
+// import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
@@ -5,17 +6,21 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import useToken from '../../hooks/useToken';
 
+// import app from '../../firebase/firebase.config'
+// import DashboardLayout from '../../Layout/DashboardLayout/DashboardLayout';
+// const auth = getAuth(app);
+
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser, updateUser } = useContext(AuthContext);
     const [signUpError, setSignUPError] = useState('');
     const [createdUserEmail, setCreatedUserEmail] = useState('');
-    
-    
+
+
     const [token] = useToken(createdUserEmail);
     const navigate = useNavigate();
 
-    if(token){
+    if (token) {
         navigate('/');
     }
 
@@ -41,8 +46,8 @@ const SignUp = () => {
             });
     }
 
-    const saveUser = (name, email) =>{
-        const user ={name, email};
+    const saveUser = (name, email) => {
+        const user = { name, email };
         fetch('https://booking-app-server-green.vercel.app/users', {
             method: 'POST',
             headers: {
@@ -50,12 +55,34 @@ const SignUp = () => {
             },
             body: JSON.stringify(user)
         })
-        .then(res => res.json())
-        .then(data =>{
-            setCreatedUserEmail(email);
-        })
+            .then(res => res.json())
+            .then(data => {
+                setCreatedUserEmail(email);
+            })
     }
-    
+    // const [value, setValue] = useState('');
+    // const [user, setUser] = useState({})
+
+    // const provider = new GoogleAuthProvider();
+
+    // const handleGoogleSignIn = () => {
+    //     signInWithPopup(auth, provider)
+    //         .then(result => {
+    //             const user = result.user;
+    //             setUser(user);        
+    //             // setUser(data.user.email)
+    //             console.log(user);
+    //         })
+    //         .catch(error => {
+    //             console.log('error:', error);
+    //         })
+    // }
+
+    // useEffect(() => {
+    //     setValue(localStorage.getItem('email'))
+    // })
+
+
 
     return (
         <div className='h-[800px] flex justify-center items-center'>
@@ -90,7 +117,12 @@ const SignUp = () => {
                 </form>
                 <p>Already have an account <Link className='text-secondary' to="/login">Please Login</Link></p>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button>
+
+                <div>
+                    {/* {value ? <DashboardLayout></DashboardLayout> :} */}
+                        {/* <button onClick={handleGoogleSignIn} className='btn btn-outline w-full'>CONTINUE WITH GOOGLE</button> */}
+                    
+                </div>
 
             </div>
         </div>
