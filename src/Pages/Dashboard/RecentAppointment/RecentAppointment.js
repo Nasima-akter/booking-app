@@ -5,19 +5,29 @@ import { useQuery } from '@tanstack/react-query';
 import ConfirmationModal from '../../Shared/ConfirmationModal/ConfirmationModal';
 import Loading from '../../Shared/Loading/Loading';
 import { toast } from 'react-hot-toast';
-import { Form, Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 
 const RecentAppointment = () => {
   const { user } = useContext(AuthContext);
   const [deletingRecentAppointment, setDeletingRecentAppointment] = useState(null);
-  const [viewRecentAppointment, setViewRecentAppointment] = useState(null);
+  // const [viewRecentAppointment, setViewRecentAppointment] = useState(null);
 
   const closeModal = () => {
     setDeletingRecentAppointment(null);
   }
-  
+
+// view button
+  // const loadDetail = () => {
+  //   console.log('get Detail')
+  // }
+
+
+// view button
+
+
+
 
   const url = `http://localhost:5000/bookings/admin?_id=${user?._id}`;
 
@@ -35,21 +45,11 @@ const RecentAppointment = () => {
     }
   })
 
-  // testing
-
-  // const LoadDetail= (id) =>{
-  //   Navigate('/Dashboard/EditUser'+id);
-  // }
-
-  // testing
-const handleViewRecentAppointment = viewBooking => {
-  console.log(viewBooking);
- 
-}
 
   const handleDeleteRecentAppointment = booking => {
     console.log(booking);
-    fetch(`http://localhost:5000/bookings/admin?_id${booking?._id}`, {
+    // http://localhost:5000/admin?
+    fetch(`http://localhost:5000/bookings/${booking?._id}`, {
       method: 'DELETE',
       headers: {
         authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -60,7 +60,7 @@ const handleViewRecentAppointment = viewBooking => {
         if (data.deletedCount > 0) {
           console.log(data);
           refetch();
-          toast.success(`seller ${booking.patient}deleted successfully`)
+          toast.success(`seller ${booking.patient} deleted successfully`)
         }
       })
   }
@@ -89,7 +89,7 @@ const handleViewRecentAppointment = viewBooking => {
           </thead>
           <tbody>
             {
-              bookings &&
+              
               bookings?.map((booking, i) => <tr key={booking._id}>
                 <th>{i + 1}</th>
                 <td>{booking.patient}</td>
@@ -99,24 +99,20 @@ const handleViewRecentAppointment = viewBooking => {
 
                 <td>{booking.appointmentDate}</td>
                 {/* <td>{booking.slot}</td> */}
-                
-                  <td>
-                    <label onClick={() => setDeletingRecentAppointment(booking)} htmlFor="confirmation-modal" className="btn btn-sm  btn-info">Cancel</label>
-                  </td>
-                  <td>
-                    {/* <label htmlFor="confirmation-modal" className="btn btn-sm  btn-info">Approved</label> */}
 
+                <td>
+                  <label onClick={() => setDeletingRecentAppointment(booking)} htmlFor="confirmation-modal" className="btn btn-sm  btn-info">Remove</label>
+                </td>
+                <td>
+                  {/* <Link className='btn btn-sm  btn-info m-2' to={`/Dashboard/EditUser/${booking?._id}`}>View R</Link>
+                  <Link className='btn btn-sm  btn-info m-2' to={`/Dashboard/EditUser`} >View</Link>
+                    */}
+                  {/* <Link className='btn btn-sm  btn-info m-2' onClick="loadDetail(${})" >View</Link> */}
+                  {/* <button className='btn btn-accent w-64' >pending</button> */}
 
-                    {/* <Link className='btn btn-sm  btn-info m-2' to='/Dashboard/EditUser' >View</Link> */}
-                    <Link className='btn btn-sm  btn-info m-2' to={`/Dashboard/EditUser`} >View</Link>
-                    <Link onClick={() => setViewRecentAppointment(booking)} htmlFor="confirmation-modal" className='btn btn-sm  btn-info m-2'>View</Link>
-
-
-                    
-                  </td>
-                  {/* <p>{slots.length > 0 ? slots[0] : 'Try another day'}</p>  /Dashboard/EditUser  
-                <p>{slots.length} {slots.length >1 ? 'Spaces' : 'Space'} Available</p> */}
-                {/* <td className='widgetLgStatus'><Button type="Approved"></Button></td> */}
+                  {/* <Link className='btn btn-sm  btn-info m-2' to={`/Dashboard/viewUser`} >View</Link> */}
+                  {/* <Link className='btn btn-sm  btn-info m-2' to={`/EditUser/${booking?.id}`} >View</Link> */}
+                </td>
               </tr>)
             }
           </tbody>
@@ -125,29 +121,16 @@ const handleViewRecentAppointment = viewBooking => {
       </div>
       {
         deletingRecentAppointment && <ConfirmationModal
-          title={`Are you sure you want to delete?`}
-          message={`If you delete ${deletingRecentAppointment.patient}. It cannot be undo.`}
+          title={`Are you sure you want to remove?`}
+          message={`If you Remove ${deletingRecentAppointment.patient}. It cannot be undo.`}
           successAction={handleDeleteRecentAppointment}
-          successButtonName="Cancel"
+          successButtonName="Remove"
           modalData={deletingRecentAppointment}
           closeModal={closeModal}
         >
 
         </ConfirmationModal>
       }
-      {/* {
-        viewRecentAppointment && <ConfirmationModal
-          title={`Are you sure you want to delete?`}
-          message={`If you delete ${viewRecentAppointment.patient}. It cannot be undo.`}
-          successAction={handleViewRecentAppointment}
-          successButtonName="Cancel"
-          modalData={viewRecentAppointment}
-          closeModal={closeModal}
-        >
-
-        </ConfirmationModal>
-      } */}
-
     </div>
   );
 };
