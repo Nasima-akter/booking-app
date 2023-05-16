@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 
 const EditUser = () => {
     // const { user } = useContext(AuthContext);
-    const [booking, setBooking] = useState({
+    const [setBooking] = useState({
         patient: '',
         treatment: '',
         email: '',
@@ -19,19 +19,19 @@ const EditUser = () => {
 
     useEffect(() => {
         loadBooking();
-    }, []);
+    }, );
 
 
     const loadBooking = async () => {
-        const res = await fetch(`http://localhost:5000/bookings/admin?_id=${id}`)
+        const res = await fetch(`https://booking-app-server-green.vercel.app/bookings/admin?_id=${id}`)
         setBooking(res.data);
     }
     // const { data: bookings = [] } = useQuery({
     //     queryKey: ['bookings', user?._id],
     //     queryFn: async () => {
 
-    //         // http://localhost:5000/
-    //         const res = await fetch(`http://localhost:5000/bookings/admin?_id=${user?._id}`, {
+    //         // https://booking-app-server-green.vercel.app/
+    //         const res = await fetch(`https://booking-app-server-green.vercel.app/bookings/admin?_id=${user?._id}`, {
     //             headers: {
     //                 authorization: `bearer ${localStorage.getItem('accessToken')}`
     //             }

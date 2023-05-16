@@ -1,5 +1,5 @@
 // const loadSingleBooking = () => {
-//     fetch('http://localhost:5000/bookings')
+//     fetch('https://booking-app-server-green.vercel.app/bookings')
 //     .then(res => res.json())
 //     .then(data => console.log(data))
 // }
@@ -60,15 +60,15 @@
 
 
 //     const loadBooking = async () => {
-//         const res = await fetch(`http://localhost:5000/bookings/admin?_id=${booking?.id}`)
+//         const res = await fetch(`https://booking-app-server-green.vercel.app/bookings/admin?_id=${booking?.id}`)
 //         setBooking(res.data);
 //     }
 //     const { data: bookings = [] } = useQuery({
 //         queryKey: ['bookings', user?._id],
 //         queryFn: async () => {
 
-//             // http://localhost:5000/
-//             const res = await fetch(`http://localhost:5000/bookings/admin?_id=${user?._id}`, {
+//             // https://booking-app-server-green.vercel.app/
+//             const res = await fetch(`https://booking-app-server-green.vercel.app/bookings/admin?_id=${user?._id}`, {
 //                 headers: {
 //                     authorization: `bearer ${localStorage.getItem('accessToken')}`
 //                 }

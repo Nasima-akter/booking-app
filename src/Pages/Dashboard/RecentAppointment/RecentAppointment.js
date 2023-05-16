@@ -5,7 +5,6 @@ import { useQuery } from '@tanstack/react-query';
 import ConfirmationModal from '../../Shared/ConfirmationModal/ConfirmationModal';
 import Loading from '../../Shared/Loading/Loading';
 import { toast } from 'react-hot-toast';
-import { Link } from 'react-router-dom';
 
 
 
@@ -29,7 +28,7 @@ const RecentAppointment = () => {
 
 
 
-  const url = `http://localhost:5000/bookings/admin?_id=${user?._id}`;
+  const url = `https://booking-app-server-green.vercel.app/bookings/admin?_id=${user?._id}`;
 
 
   const { data: bookings, isLoading, refetch = [] } = useQuery({
@@ -48,8 +47,8 @@ const RecentAppointment = () => {
 
   const handleDeleteRecentAppointment = booking => {
     console.log(booking);
-    // http://localhost:5000/admin?
-    fetch(`http://localhost:5000/bookings/${booking?._id}`, {
+    // https://booking-app-server-green.vercel.app/admin?
+    fetch(`https://booking-app-server-green.vercel.app/bookings/${booking?._id}`, {
       method: 'DELETE',
       headers: {
         authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -60,7 +59,7 @@ const RecentAppointment = () => {
         if (data.deletedCount > 0) {
           console.log(data);
           refetch();
-          toast.success(`seller ${booking.patient} deleted successfully`)
+          toast.success(`${booking.patient} Appointment deleted successfully`)
         }
       })
   }

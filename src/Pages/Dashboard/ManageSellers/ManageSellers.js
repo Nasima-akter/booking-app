@@ -32,7 +32,7 @@ const ManageSellers = () => {
     });
 
     const handleDeleteSeller = seller => {
-        fetch(`http://localhost:5000/sellers/${seller._id}`, {
+        fetch(`https://booking-app-server-green.vercel.app/sellers/${seller._id}`, {
             method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -42,7 +42,7 @@ const ManageSellers = () => {
         .then(data => {
             if(data.deletedCount > 0){
                 refetch();
-                toast.success(`seller ${seller.name}deleted successfully`)
+                toast.success(`seller ${seller.name} deleted successfully`)
             }
         })
     }

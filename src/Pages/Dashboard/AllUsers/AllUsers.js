@@ -21,7 +21,7 @@ const AllUsers = () => {
 
   const handleMakeAdmin = id => {
     console.log(id, 'admin')
-    fetch(`http://localhost:5000/users/admin/${id}`, {
+    fetch(`https://booking-app-server-green.vercel.app/users/admin/${id}`, {
       method: 'PATCH',
       headers: {
         authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -39,7 +39,7 @@ const AllUsers = () => {
 
   const handleDeleteAdmin = user => {
     // console.log(user);
-    fetch(`http://localhost:5000/users/${user._id}`, {
+    fetch(`https://booking-app-server-green.vercel.app/users/${user._id}`, {
       method: 'DELETE',
       headers: {
         authorization: `bearer ${localStorage.getItem('accessToken')}`
