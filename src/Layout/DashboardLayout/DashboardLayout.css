@@ -1,0 +1,14 @@
+/* .menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):hover){
+    background-color: red !important;
+}
+
+.menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):active){
+    background-color: green !important;
+} */
+
+.menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):focus), .menu :where(li:not(.menu-title):not(:empty)) > :where(*:not(ul):hover){
+    background-color: #f1f5f9;
+}
+.custom-menu-padding{
+    padding: 15px 0px 15px 15px;
+}

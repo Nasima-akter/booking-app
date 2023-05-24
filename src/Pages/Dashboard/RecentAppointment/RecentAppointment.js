@@ -11,21 +11,10 @@ import { toast } from 'react-hot-toast';
 const RecentAppointment = () => {
   const { user } = useContext(AuthContext);
   const [deletingRecentAppointment, setDeletingRecentAppointment] = useState(null);
-  // const [viewRecentAppointment, setViewRecentAppointment] = useState(null);
 
   const closeModal = () => {
     setDeletingRecentAppointment(null);
   }
-
-// view button
-  // const loadDetail = () => {
-  //   console.log('get Detail')
-  // }
-
-
-// view button
-
-
 
 
   const url = `https://booking-app-server-green.vercel.app/bookings/admin?_id=${user?._id}`;
@@ -44,11 +33,11 @@ const RecentAppointment = () => {
     }
   })
 
+  
 
   const handleDeleteRecentAppointment = booking => {
     console.log(booking);
-    // https://booking-app-server-green.vercel.app/admin?
-    fetch(`https://booking-app-server-green.vercel.app/bookings/${booking?._id}`, {
+    fetch(`https://booking-app-server-clj8f48f2-nasima-akter.vercel.app/bookings/${booking?._id}`, {
       method: 'DELETE',
       headers: {
         authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -72,7 +61,8 @@ const RecentAppointment = () => {
   return (
 
     <div>
-      <div>
+      <h3 className="text-3xl mb-6 mt-6 ml-12 font-bold">Recent Appointments</h3>
+      <div className="overflow-x-auto w-11/12 ml-12">
         <table className="table w-full">
           <thead>
             <tr>
@@ -88,7 +78,7 @@ const RecentAppointment = () => {
           </thead>
           <tbody>
             {
-              
+              bookings &&
               bookings?.map((booking, i) => <tr key={booking._id}>
                 <th>{i + 1}</th>
                 <td>{booking.patient}</td>
@@ -102,16 +92,6 @@ const RecentAppointment = () => {
                 <td>
                   <label onClick={() => setDeletingRecentAppointment(booking)} htmlFor="confirmation-modal" className="btn btn-sm  btn-info">Remove</label>
                 </td>
-                <td>
-                  {/* <Link className='btn btn-sm  btn-info m-2' to={`/Dashboard/EditUser/${booking?._id}`}>View R</Link>
-                  <Link className='btn btn-sm  btn-info m-2' to={`/Dashboard/EditUser`} >View</Link>
-                    */}
-                  {/* <Link className='btn btn-sm  btn-info m-2' onClick="loadDetail(${})" >View</Link> */}
-                  {/* <button className='btn btn-accent w-64' >pending</button> */}
-
-                  {/* <Link className='btn btn-sm  btn-info m-2' to={`/Dashboard/viewUser`} >View</Link> */}
-                  {/* <Link className='btn btn-sm  btn-info m-2' to={`/EditUser/${booking?.id}`} >View</Link> */}
-                </td>
               </tr>)
             }
           </tbody>
@@ -120,16 +100,17 @@ const RecentAppointment = () => {
       </div>
       {
         deletingRecentAppointment && <ConfirmationModal
-          title={`Are you sure you want to remove?`}
-          message={`If you Remove ${deletingRecentAppointment.patient}. It cannot be undo.`}
-          successAction={handleDeleteRecentAppointment}
-          successButtonName="Remove"
-          modalData={deletingRecentAppointment}
-          closeModal={closeModal}
+        title={`Are you sure you want to remove?`}
+        message={`If you Remove ${deletingRecentAppointment.patient}. It cannot be undo.`}
+        successAction={handleDeleteRecentAppointment}
+        successButtonName="Remove"
+        modalData={deletingRecentAppointment}
+        closeModal={closeModal}
         >
 
         </ConfirmationModal>
       }
+
     </div>
   );
 };

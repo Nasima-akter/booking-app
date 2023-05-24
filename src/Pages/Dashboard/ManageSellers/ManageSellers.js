@@ -53,8 +53,8 @@ const ManageSellers = () => {
 
     return (
         <div>
-            <h2 className='text-3xl'>Manage Seller: {sellers?.length}</h2>
-            <div className="overflow-x-auto">
+            <h2 className='text-3xl mb-6 mt-6 ml-12 font-bold'>Manage Seller: {sellers?.length}</h2>
+            <div className="overflow-x-auto w-11/12 ml-12">
                 <table className="table w-full">
                     <thead>
                         <tr>
